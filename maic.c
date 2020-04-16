@@ -12,19 +12,11 @@
 #include "lcd.h"
 #include <util/delay.h>
 
- char a[]="LED0 is ON ";
-    char b[]="LED0 is OFF ";
-    
-    char c[]="LED1 is ON ";
-    char d[]="LED1 is OFF ";
-    
-    char e[]="LED2 is ON ";
-    char f[]="LED2 is OFF ";
-    
-    int flag=0;
+int i;
 
-int main(void) {
-    LCD_Init();
+
+void main(void) {
+
     /* Replace with your application code */
     
     //declare buttons as input
@@ -39,64 +31,56 @@ int main(void) {
     
    
 
-    while (1) {
-        if((IspressedB(Button0))&&(flag==0)){
-            _delay_ms(200);
-            flag=1;
-            if(flag==1){
-            LCD_Clear();
-            setPINC(LED0);
-            LCD_String(a);
-            }
-            
-        }
-         if((IspressedB(Button0))&&(flag==1)){
-             _delay_ms(200);
-            flag=0;
-            if(flag==0){
-            LCD_Clear();
-            resetPINC(LED0);
-             LCD_String(b);
-            }
-        }
-          if((IspressedB(Button1))&&(flag==0)){
-              _delay_ms(200);
-               flag=1;
-            if(flag==1){
-            LCD_Clear();
-            setPINC(LED1);
-            LCD_String(c);
+    while (1) 
+    {
+        if( IspressedB(Button0) )
+        {
+            for (i=0;( ( IspressedB(Button1) || IspressedD(Button2) ) != 1 );i++)
+            {
+              resetPIND(LED2);
+              setPINC(LED0);
+              _delay_ms(500);
+             
+             resetPINC(LED0);
+             setPINC(LED1);
+              _delay_ms(500);
+             
+             resetPINC(LED1);
+             setPIND(LED2);
+              _delay_ms(500);
             }
         }
-         if((IspressedB(Button1))&&(flag==1)){
-             _delay_ms(200);
-             flag=0;
-            if(flag==0){
-            LCD_Clear();
-            resetPINC(LED1);
-             LCD_String(d);
-            }
+        if( IspressedB(Button1) )
+        {
+          resetPINC(LED0); 
+          resetPINC(LED1);
+          resetPIND(LED2);
         }
         
-          if((IspressedD(Button2))&&(flag==0)){
-              _delay_ms(200);
-               flag=1;
-            if(flag==1){
-            LCD_Clear();
-            setPIND(LED2);
-            LCD_String(e);
+         if( IspressedD(Button2) )
+        {
+            for (i=0;( ( IspressedB(Button1) || IspressedB(Button0) ) != 1 );i++)
+            {
+              resetPINC(LED0);
+              setPIND(LED2);
+              _delay_ms(500);
+             
+             resetPIND(LED2);
+             setPINC(LED1);
+              _delay_ms(500);
+             
+             resetPINC(LED1);
+             setPINC(LED0);
+              _delay_ms(500);
             }
         }
-         if((IspressedD(Button2))&&(flag==1)){
-             _delay_ms(200);
-             flag=0;
-            if(flag==0){
-            LCD_Clear();
-            resetPIND(LED2);
-             LCD_String(f);
-            }
+        if( IspressedB(Button1) )
+        {
+          resetPINC(LED0); 
+          resetPINC(LED1);
+          resetPIND(LED2);
         }
-        
     }
-    return 0;
 }
+    
+
