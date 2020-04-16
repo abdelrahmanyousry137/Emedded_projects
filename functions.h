@@ -33,15 +33,23 @@
 
 #include <xc.h> // include processor files - each processor file is guarded. 
 
+//set pin as high as output
 void setPINA(int pinNum);
 void setPINB(int pinNum);
 void setPINC(int pinNum);
 void setPIND(int pinNum);
 
+//set pin as low as output
 void resetPINA(int pinNum);
 void resetPINB(int pinNum);
 void resetPINC(int pinNum);
 void resetPIND(int pinNum);
+
+//set pin data direction aka DDR
+void setDDRA(int pinNum,int dir);
+void setDDRB(int pinNum,int dir);
+void setDDRC(int pinNum,int dir);
+void setDDRD(int pinNum,int dir);
 
 int IspressedA(int pinNum);
 int IspressedB(int pinNum);

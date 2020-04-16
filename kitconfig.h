@@ -32,7 +32,8 @@
 #define	XC_HEADER_TEMPLATE_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
-
+#define out 1
+#define in  0
 //portA
 #define LM35    1
 #define Relay   2
