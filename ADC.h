@@ -31,35 +31,17 @@
 #ifndef XC_HEADER_TEMPLATE_H
 #define	XC_HEADER_TEMPLATE_H
 
-#include <xc.h> // include processor files - each processor file is guarded. 
+#include <xc.h> 
 
-//set pin as high as output
-void setPINA(int pinNum);
-void setPINB(int pinNum);
-void setPINC(int pinNum);
-void setPIND(int pinNum);
+//void ADC_inti(int Ref,int prescaler,int LorR,int channelNum);
 
-//set pin as low as output
-void resetPINA(int pinNum);
-void resetPINB(int pinNum);
-void resetPINC(int pinNum);
-void resetPIND(int pinNum);
+void Inti_ADC(void);
 
-//set pin data direction aka DDR
-void setDDRA(int pinNum,int dir);
-void setDDRB(int pinNum,int dir);
-void setDDRC(int pinNum,int dir);
-void setDDRD(int pinNum,int dir);
+short ADC_Read(char channel);
 
-int IspressedA(int pinNum);
-int IspressedB(int pinNum);
-int IspressedC(int pinNum);
-int IspressedD(int pinNum);
+void ADC_Conv();
 
-//interupts functions
-void INT0_init(int type);
-void INT1_init(int type);
-void INT2_init(int type);
+// include processor files - each processor file is guarded.  
 
 // TODO Insert appropriate #include <>
 

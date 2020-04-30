@@ -8,6 +8,12 @@
 
 #include <xc.h>
 #include "kitconfig.h"
+#include "functions.h"
+
+#define Risingedge  1
+#define Fallingedge 2
+#define Toggle      3
+#define Lowlevel    4
 
 //set pin as high as output
 
@@ -55,7 +61,10 @@ void setDDRA(int pinNum, int dir) {
         case in:
             DDRA &= ~(1 << pinNum);
             break;
-    
+                   /*default :
+# warning "wrong argument input to function , use out or in"
+            break;
+            */
     }
 }
 
@@ -67,7 +76,10 @@ void setDDRB(int pinNum, int dir) {
         case in:
             DDRB &= ~(1 << pinNum);
             break;
- 
+                   /*default :
+# warning "wrong argument input to function , use out or in"
+            break;
+            */
     }
 }
 
@@ -79,6 +91,10 @@ void setDDRC(int pinNum, int dir) {
         case in:
             DDRC &= ~(1 << pinNum);
             break;
+                   /*default :
+# warning "wrong argument input to function , use out or in"
+            break;
+            */
     }
 }
 
@@ -90,7 +106,10 @@ void setDDRD(int pinNum, int dir) {
         case in:
             DDRD &= ~(1 << pinNum);
             break;
-
+                   /*default :
+# warning "wrong argument input to function , use out or in"
+            break;
+            */
     }
 }
 
@@ -120,4 +139,69 @@ int IspressedD(int pinNum) {
         return 1;
     else
         return 0;
+}
+
+//interrupt functions 
+
+void INT0_init(int type) {
+    switch(type){
+        case(Risingedge):
+    MCUCR |= (1 << ISC01) | (1 << ISC00); // Rising Edge
+    GICR |= (1 << INT0);
+    break;
+        case(Fallingedge):
+           MCUCR |= (1 << ISC01);
+           MCUCR &=~(1 << ISC00);
+           GICR |= (1 << INT0);
+           break;
+        case(Toggle):
+            MCUCR |= (1 << ISC00);
+           MCUCR &=~(1 << ISC01);
+           GICR |= (1 << INT0);
+           break;
+           case(Lowlevel):
+            MCUCR &=~(1 << ISC00);
+           MCUCR &=~(1 << ISC01);
+           GICR |= (1 << INT0);
+           break;
+    }
+}
+
+
+void INT1_init(int type) {
+    switch(type){
+        case(Risingedge):
+    MCUCR |= (1 << ISC11) | (1 << ISC10); // Rising Edge
+    GICR |= (1 << INT1);
+    break;
+        case(Fallingedge):
+           MCUCR |= (1 << ISC11);
+           MCUCR &=~(1 << ISC10);
+           GICR |= (1 << INT1);
+           break;
+        case(Toggle):
+            MCUCR |= (1 << ISC10);
+           MCUCR &=~(1 << ISC11);
+           GICR |= (1 << INT1);
+           break;
+           case(Lowlevel):
+            MCUCR &=~(1 << ISC10);
+           MCUCR &=~(1 << ISC11);
+           GICR |= (1 << INT1);
+           break;
+    }
+}
+
+
+void INT2_init(int type) {
+    switch(type){
+        case(Risingedge):
+    MCUCSR |= (1 << ISC2); // Rising Edge
+    GICR |= (1 << INT2);
+    break;
+        case(Fallingedge):
+           MCUCSR &=~(1 << ISC2);
+           GICR |= (1 << INT2);
+           break;
+    }
 }
